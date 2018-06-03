@@ -1,0 +1,8 @@
+# Mac System files
+.DS_Store
+
+# Build Directory
+dist/
+
+# Node Modules
+node_modules/
