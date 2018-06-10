@@ -31,7 +31,7 @@ export class App extends React.Component<Props, State> {
   }
 
   _handleSearch(event: KeyboardEvent): void {
-    if (event.target instanceof HTMLElement) {
+    if (event.target instanceof HTMLInputElement) {
       this.setState({
         searchValue: event.target.value
       })

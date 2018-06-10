@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './App';
+import { App2 } from './App2';
 
 import './index.html';
 
@@ -12,7 +12,7 @@ const appElement = document.getElementById(appId);
 if (appElement) {
 
   ReactDOM.render(
-    <App />,
+    <App2 />,
     appElement
   )
 

@@ -20,7 +20,7 @@ type ItunesResult = {
   discCount: number,
   discNumber: number,
   isStreamable: true,
-  kind: song,
+  kind: string,
   previewUrl: string,
   primaryGenreName: string,
   releaseDate: string,
@@ -39,7 +39,7 @@ type ItunesResult = {
 type Props = {
   list: Array<ItunesResult>,
   fetching: boolean,
-  fetching: boolean,
+  fetched: boolean,
   error: boolean,
   errorMessage: string
 };
