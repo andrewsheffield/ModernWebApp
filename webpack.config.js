@@ -3,6 +3,13 @@ const path = require('path');
 module.exports = {
   devServer: {
     contentBase: path.join(__dirname, "dist"),
+    proxy: {
+      '/api': {
+        target: 'https://itunes.apple.com',
+        pathRewrite: {'^/api' : ''},
+        changeOrigin: true
+      }
+    }
   },
   entry: path.resolve(__dirname, './src/index.js'),
   output: {

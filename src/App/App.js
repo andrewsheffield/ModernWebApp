@@ -85,7 +85,7 @@ export class App extends React.Component<Props, State> {
 
   _fetchItunesData(searchValue: string) {
     const newSearchValue = searchValue.replace(' ', '+')
-    return fetch(`https://itunes.apple.com/search?term=${newSearchValue}`)
+    return fetch(`api/search?term=${newSearchValue}`)
       .then( response => response.json() )
   }
 
