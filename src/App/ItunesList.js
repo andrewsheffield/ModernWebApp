@@ -20,7 +20,7 @@ type ItunesResult = {
   discCount: number,
   discNumber: number,
   isStreamable: true,
-  kind: song,
+  kind: string,
   previewUrl: string,
   primaryGenreName: string,
   releaseDate: string,
@@ -33,13 +33,13 @@ type ItunesResult = {
   trackPrice: number,
   trackTimeMillis: number,
   trackViewUrl: string,
-  wrapperType: string,
+  wrapperType: string
 };
 
 type Props = {
   list: Array<ItunesResult>,
   fetching: boolean,
-  fetching: boolean,
+  fetched: boolean,
   error: boolean,
   errorMessage: string
 };
@@ -48,34 +48,40 @@ type State = {};
 
 export default class ItunesList extends React.Component<Props, State> {
   render() {
-
     const { fetched, fetching, error, errorMessage, list } = this.props;
 
     if (fetching) {
-      return <div><span>Loading...</span></div>
-    }
-    else if (error) {
-      return <div><span>{errorMessage || "Unkown Error Occured"}</span></div>
-    }
-    else if (fetched) {
-      const searchResults = list.map( result => {
+      return (
+        <div>
+          <span>Loading...</span>
+        </div>
+      );
+    } else if (error) {
+      return (
+        <div>
+          <span>{errorMessage || 'Unkown Error Occured'}</span>
+        </div>
+      );
+    } else if (fetched) {
+      const searchResults = list.map(result => {
         return (
           <div>
             <li key={result.trackId}>{result.trackName}</li>
             <img src={result.artworkUrl100} />
           </div>
-        )
-      })
+        );
+      });
       return (
         <div>
           <ul>{searchResults}</ul>
         </div>
-      )
+      );
+    } else {
+      return (
+        <div>
+          <span>Search above for itunes songs</span>
+        </div>
+      );
     }
-    else {
-      return <div><span>Search above for itunes songs</span></div>
-    }
-
-    
   }
 }

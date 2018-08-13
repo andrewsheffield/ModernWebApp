@@ -14,7 +14,6 @@ type State = {
 };
 
 export class App extends React.Component<Props, State> {
-
   constructor(props: Props) {
     super(props);
 
@@ -22,19 +21,18 @@ export class App extends React.Component<Props, State> {
       fetching: false,
       fetched: false,
       error: false,
-      errorMessage: "",
+      errorMessage: '',
 
-      searchValue: "",
+      searchValue: '',
       searchResults: []
-    }
-
+    };
   }
 
   _handleSearch(event: KeyboardEvent): void {
-    if (event.target instanceof HTMLElement) {
+    if (event.target instanceof HTMLInputElement) {
       this.setState({
         searchValue: event.target.value
-      })
+      });
     }
   }
 
@@ -43,7 +41,7 @@ export class App extends React.Component<Props, State> {
       fetching: true,
       fetched: false,
       error: false,
-      errorMessage: ""
+      errorMessage: ''
     });
   }
 
@@ -52,7 +50,7 @@ export class App extends React.Component<Props, State> {
       fetching: false,
       fetched: true,
       error: false,
-      errorMessage: ""
+      errorMessage: ''
     });
   }
 
@@ -61,7 +59,7 @@ export class App extends React.Component<Props, State> {
       fetching: false,
       fetched: false,
       error: true,
-      errorMessage: errorMessage || "Unkown error"
+      errorMessage: errorMessage || 'Unkown error'
     });
   }
 
@@ -69,40 +67,53 @@ export class App extends React.Component<Props, State> {
     this._setFetchingState();
 
     this._fetchItunesData(this.state.searchValue)
-      .then( response => {
-        console.log(response)
+      .then(response => {
+        console.log(response);
         this.setState({
-          searchValue: "",
+          searchValue: '',
           searchResults: response.results
         });
         this._setFetchedState();
       })
-      .catch( error => {
+      .catch(error => {
         this._setErrorState(error.message);
         console.dir(error);
       });
   }
 
   _fetchItunesData(searchValue: string) {
-    const newSearchValue = searchValue.replace(' ', '+')
-    return fetch(`api/search?term=${newSearchValue}`)
-      .then( response => response.json() )
+    const newSearchValue = searchValue.replace(' ', '+');
+    return fetch(`api/search?term=${newSearchValue}`).then(response =>
+      response.json()
+    );
   }
 
   render() {
-    const { fetching, fetched, error, errorMessage, searchResults } = this.state;
+    const {
+      fetching,
+      fetched,
+      error,
+      errorMessage,
+      searchResults
+    } = this.state;
 
-    return <div>
-      <input value={this.state.searchValue} onChange={ e => this._handleSearch(e) } type="text" placeholder="search itunes" />
-      <button onClick={ e => this._handleClick() }>Go!</button>
-      <ItunesList 
-        list={searchResults} 
-        fetching={fetching} 
-        fetched={fetched}
-        error={error}
-        errorMessage={errorMessage}
+    return (
+      <div>
+        <input
+          value={this.state.searchValue}
+          onChange={e => this._handleSearch(e)}
+          type="text"
+          placeholder="search itunes"
         />
-    </div>
+        <button onClick={e => this._handleClick()}>Go!</button>
+        <ItunesList
+          list={searchResults}
+          fetching={fetching}
+          fetched={fetched}
+          error={error}
+          errorMessage={errorMessage}
+        />
+      </div>
+    );
   }
-  
 }
